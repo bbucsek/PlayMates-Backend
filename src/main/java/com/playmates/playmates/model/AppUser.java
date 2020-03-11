@@ -5,23 +5,29 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class AppUser extends AuditModel {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
+    @NotEmpty
+    private String username;
 
+    @NotEmpty
     private String password;
+
+    @ElementCollection
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 }
