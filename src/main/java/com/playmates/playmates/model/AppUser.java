@@ -27,6 +27,9 @@ public class AppUser {
     @NotEmpty
     private String password;
 
+    @NotEmpty
+    private String email;
+
     @ElementCollection
     @Builder.Default
     private List<String> roles = new ArrayList<>();

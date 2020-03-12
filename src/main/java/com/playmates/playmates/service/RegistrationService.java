@@ -19,6 +19,7 @@ public class RegistrationService {
         AppUser newUser = AppUser.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
+                .email(user.getEmail())
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
 
