@@ -1,21 +1,13 @@
 package com.playmates.playmates.controller;
 
 import com.playmates.playmates.model.UserCredentials;
-import com.playmates.playmates.repository.AppUserRepository;
-import com.playmates.playmates.security.JwtTokenServices;
 import com.playmates.playmates.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,7 +16,6 @@ public class AuthController {
 
     @Autowired
     AuthService authservice;
-
 
     private final PasswordEncoder passwordEncoder;
 
