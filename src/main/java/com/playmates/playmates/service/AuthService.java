@@ -1,7 +1,7 @@
 package com.playmates.playmates.service;
 
 import com.playmates.playmates.model.AppUser;
-import com.playmates.playmates.model.UserCredentials;
+import com.playmates.playmates.model.credentials.UserCredentials;
 import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.security.JwtTokenServices;
 import org.springframework.beans.factory.annotation.Autowired;

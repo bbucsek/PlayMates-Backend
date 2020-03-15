@@ -1,4 +1,4 @@
-package com.playmates.playmates.model;
+package com.playmates.playmates.model.credentials;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

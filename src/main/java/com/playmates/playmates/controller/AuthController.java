@@ -1,6 +1,6 @@
 package com.playmates.playmates.controller;
 
-import com.playmates.playmates.model.UserCredentials;
+import com.playmates.playmates.model.credentials.UserCredentials;
 import com.playmates.playmates.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
