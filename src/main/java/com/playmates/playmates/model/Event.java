@@ -24,7 +24,8 @@ public class Event {
     @OneToOne
     private AppUser host;
 
-    private String game;
+    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<EventBoardGame> games;
 
     @ElementCollection
     @ManyToMany

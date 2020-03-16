@@ -1,11 +1,13 @@
 package com.playmates.playmates.model.credentials;
 
+import com.playmates.playmates.model.generated.GamesItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -13,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class EventCredentials {
 
-    private String game;
+    private List<GamesItem> games;
     private Integer limit;
     private Date date;
 }

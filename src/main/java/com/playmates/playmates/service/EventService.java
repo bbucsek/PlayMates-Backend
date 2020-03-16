@@ -2,6 +2,7 @@ package com.playmates.playmates.service;
 
 import com.playmates.playmates.model.AppUser;
 import com.playmates.playmates.model.Event;
+import com.playmates.playmates.model.EventBoardGame;
 import com.playmates.playmates.model.credentials.EventCredentials;
 import com.playmates.playmates.model.generated.GamesItem;
 import com.playmates.playmates.repository.AppUserRepository;
@@ -10,7 +11,10 @@ import com.playmates.playmates.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -24,13 +28,20 @@ public class EventService {
     public void addEvent(EventCredentials event) {
         String name = Util.getUserFromContext();
         AppUser appUser = appUserRepository.findByUsername(name).get();
-        GamesItem gamesItem = new GamesItem();
-        gamesItem.setName(event.getGame());
+
+        List<EventBoardGame> games = event.getGames().stream().map(game -> {
+            EventBoardGame obj = EventBoardGame.builder()
+                    .apiId(game.getId())
+                    .name(game.getName())
+                    .build();
+            return obj;
+        }).collect(Collectors.toList());
+
         Event newEvent = Event.builder()
                 .eventDate(event.getDate())
                 .host(appUser)
                 .memberLimit(event.getLimit())
-                .game(event.getGame())
+                .games(games)
                 .build();
         eventRepository.saveAndFlush(newEvent);
     }
