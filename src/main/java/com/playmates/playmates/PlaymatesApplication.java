@@ -29,20 +29,4 @@ public class PlaymatesApplication {
         SpringApplication.run(PlaymatesApplication.class, args);
     }
 
-    @Bean
-    @Profile("production")
-    public CommandLineRunner init() {
-
-        return args -> {
-            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-            AppUser admin = AppUser.builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("admin"))
-                    .build();
-
-            appUserRepository.saveAndFlush(admin);
-        };
-    }
-
 }
