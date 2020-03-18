@@ -32,13 +32,7 @@ public class EventService {
         String name = Util.getUserFromContext();
         AppUser appUser = appUserRepository.findByUsername(name).get();
 
-        List<EventBoardGame> games = event.getGames().stream().map(game -> {
-            EventBoardGame obj = EventBoardGame.builder()
-                    .apiId(game.getId())
-                    .name(game.getName())
-                    .build();
-            return obj;
-        }).collect(Collectors.toList());
+        List<EventBoardGame> games = converter.getConvertedBoardGames(event.getGames());
 
         Event newEvent = Event.builder()
                 .eventDate(event.getDate())
