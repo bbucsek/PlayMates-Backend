@@ -58,4 +58,9 @@ public class EventService {
         return converter.getConvertedEvent(events);
 
     }
+
+    public void deleteEventById(Long id) {
+
+        eventRepository.deleteById(id);
+    }
 }

@@ -30,4 +30,10 @@ public class EventController {
 
         return eventService.getMyEvents();
     }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteEvent(@PathVariable Long id) {
+
+        eventService.deleteEventById(id);
+    }
 }
