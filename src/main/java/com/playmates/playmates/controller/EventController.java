@@ -36,4 +36,16 @@ public class EventController {
 
         eventService.deleteEventById(id);
     }
+
+    @GetMapping("/list")
+    public Set<EventForFrontend> getOpenEvents() {
+
+        return eventService.getOpenEvents();
+    }
+
+    @PutMapping("/join/{eventId}")
+    public void joinEvent(@PathVariable Long eventId) {
+
+        eventService.joinEvent(eventId);
+    }
 }

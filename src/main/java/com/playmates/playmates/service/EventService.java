@@ -9,15 +9,22 @@ import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.EventRepository;
 import com.playmates.playmates.util.Converter;
 import com.playmates.playmates.util.Util;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EventService {
+
+    Logger logger;
 
     @Autowired
     EventRepository eventRepository;
@@ -41,6 +48,7 @@ public class EventService {
                 .games(games)
                 .build();
         eventRepository.saveAndFlush(newEvent);
+
     }
 
     public Set<EventForFrontend> getMyEvents() {
@@ -56,5 +64,24 @@ public class EventService {
     public void deleteEventById(Long id) {
 
         eventRepository.deleteById(id);
+    }
+
+    public Set<EventForFrontend> getOpenEvents() {
+
+        String name = Util.getUserFromContext();
+        AppUser user = appUserRepository.findByUsername(name).get();
+
+        Set<Event> filteredEvents = eventRepository.findAll().stream().filter(event ->
+                !event.getHostId().equals(user.getId())).collect(Collectors.toSet());
+
+        return converter.getConvertedEvent(filteredEvents);
+    }
+
+    public void joinEvent(Long eventId) {
+
+        String name = Util.getUserFromContext();
+        AppUser user = appUserRepository.findByUsername(name).get();
+
+        eventRepository.joinEvent(eventId, user.getId());
     }
 }
