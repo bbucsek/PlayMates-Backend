@@ -71,8 +71,13 @@ public class EventService {
         String name = Util.getUserFromContext();
         AppUser user = appUserRepository.findByUsername(name).get();
 
+        /*Set<Event> filteredEvents = eventRepository.findAll().stream().filter(event ->
+                !event.getHostId().equals(user.getId())).collect(Collectors.toSet());*/
+
         Set<Event> filteredEvents = eventRepository.findAll().stream().filter(event ->
-                !event.getHostId().equals(user.getId())).collect(Collectors.toSet());
+                !event.getHostId().equals(user.getId()) &&
+                !event.getMemberIds().contains(user.getId())
+                ).collect(Collectors.toSet());
 
         return converter.getConvertedEvent(filteredEvents);
     }
