@@ -82,6 +82,10 @@ public class EventService {
         String name = Util.getUserFromContext();
         AppUser user = appUserRepository.findByUsername(name).get();
 
-        eventRepository.joinEvent(eventId, user.getId());
+        Event event = eventRepository.findById(eventId).get();
+        Set<Long> members = event.getMemberIds();
+        members.add(user.getId());
+        event.setMemberIds(members);
+        eventRepository.save(event);
     }
 }
