@@ -9,22 +9,16 @@ import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.EventRepository;
 import com.playmates.playmates.util.Converter;
 import com.playmates.playmates.util.Util;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EventService {
-
-    Logger logger;
 
     @Autowired
     EventRepository eventRepository;
