@@ -12,8 +12,6 @@ import java.util.Set;
 public interface EventRepository extends JpaRepository<Event, Long> {
     Set<Event> findByHostId(Long hostId);
 
-    @Modifying
-    @Query("update Event e set e.memberIds = :userId where e.id = :eventId")
-    void joinEvent(Long eventId, Long userId);
+    Set<Event> findByHostIdIsNot(Long hostId);
 
 }
