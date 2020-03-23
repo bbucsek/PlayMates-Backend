@@ -24,18 +24,20 @@ public class GameService {
     @Autowired
     FilteredBoardGameRepository filteredBoardGameRepository;
 
+    @Autowired
+    Util util;
+
     public void addGameToFavourites(GamesItem game) {
 
-        String name = Util.getUserFromContext();
-        AppUser user = appUserRepository.findByUsername(name).get();
+        AppUser appUser = util.getUserFromContext();
 
         BoardGameFiltered boardGame = converter.getConvertedBoardGame(game);
         filteredBoardGameRepository.save(boardGame);
 
-        Set<BoardGameFiltered> favourites = user.getFavouriteBoardGames();
+        Set<BoardGameFiltered> favourites = appUser.getFavouriteBoardGames();
         favourites.add(boardGame);
-        user.setFavouriteBoardGames(favourites);
-        appUserRepository.save(user);
+        appUser.setFavouriteBoardGames(favourites);
+        appUserRepository.save(appUser);
 
 
     }

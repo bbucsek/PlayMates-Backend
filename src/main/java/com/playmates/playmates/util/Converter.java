@@ -5,6 +5,7 @@ import com.playmates.playmates.model.BoardGameFiltered;
 import com.playmates.playmates.model.EventForFrontend;
 import com.playmates.playmates.model.Mechanics;
 import com.playmates.playmates.model.generated.GamesItem;
+import com.playmates.playmates.model.generated.MechanicsItem;
 import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.MechanicsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +55,8 @@ public class Converter {
     }
 
     public BoardGameFiltered getConvertedBoardGame(GamesItem game) {
-        Set<Mechanics> mechanics = game.getMechanics().stream().map(mechanicsItem -> {
-            Mechanics mechanic = mechanicsRepository.findById(mechanicsItem.getId()).orElse(null);
-         return mechanic;
-        }).collect(Collectors.toSet());
+
+        Set<Mechanics> mechanics = getConvertedMechanics(game.getMechanics());
         BoardGameFiltered boardGame = BoardGameFiltered.builder()
                 .id(game.getId())
                 .name(game.getName())
@@ -66,4 +65,11 @@ public class Converter {
         return boardGame;
     }
 
+    public Set<Mechanics> getConvertedMechanics(List<MechanicsItem> mechanicsItems) {
+        Set<Mechanics> mechanics = mechanicsItems.stream().map(mechanicsItem -> {
+            Mechanics mechanic = mechanicsRepository.findById(mechanicsItem.getId()).orElse(null);
+            return mechanic;
+        }).collect(Collectors.toSet());
+        return mechanics;
+    }
 }

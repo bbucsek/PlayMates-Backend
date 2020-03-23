@@ -33,9 +33,11 @@ public class EventService {
     @Autowired
     Converter converter;
 
+    @Autowired
+    Util util;
+
     public void addEvent(EventCredentials event) {
-        String name = Util.getUserFromContext();
-        AppUser appUser = appUserRepository.findByUsername(name).get();
+        AppUser appUser = util.getUserFromContext();
 
         Set<BoardGameFiltered> games = converter.getConvertedBoardGames(event.getGames());
 
@@ -59,9 +61,8 @@ public class EventService {
 
     public Set<EventForFrontend> getMyEvents() {
 
-        String name = Util.getUserFromContext();
-        AppUser user = appUserRepository.findByUsername(name).get();
-        Set<Event> events = eventRepository.findByHostId(user.getId());
+        AppUser appUser = util.getUserFromContext();
+        Set<Event> events = eventRepository.findByHostId(appUser.getId());
 
         return converter.getConvertedEvent(events);
 
@@ -74,13 +75,12 @@ public class EventService {
 
     public Set<EventForFrontend> getOpenEvents() {
 
-        String name = Util.getUserFromContext();
-        AppUser user = appUserRepository.findByUsername(name).get();
+        AppUser appUser = util.getUserFromContext();
 
-        Set<Event> filteredEvents = eventRepository.findByHostIdIsNot(user.getId())
+        Set<Event> filteredEvents = eventRepository.findByHostIdIsNot(appUser.getId())
                 .stream()
                 .filter(event ->
-                        !event.getMemberIds().contains(user.getId()))
+                        !event.getMemberIds().contains(appUser.getId()))
                 .collect(Collectors.toSet());
 
         return converter.getConvertedEvent(filteredEvents);
@@ -88,12 +88,11 @@ public class EventService {
 
     public void joinEvent(Long eventId) {
 
-        String name = Util.getUserFromContext();
-        AppUser user = appUserRepository.findByUsername(name).get();
+        AppUser appUser = util.getUserFromContext();
 
         Event event = eventRepository.findById(eventId).get();
         Set<Long> members = event.getMemberIds();
-        members.add(user.getId());
+        members.add(appUser.getId());
         event.setMemberIds(members);
         eventRepository.save(event);
     }
