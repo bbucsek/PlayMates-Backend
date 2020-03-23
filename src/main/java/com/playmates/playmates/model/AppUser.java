@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -30,7 +31,12 @@ public class AppUser {
     @NotEmpty
     private String email;
 
+    @ManyToMany
+    private Set<BoardGameFiltered> favouriteBoardGames;
+
     @ElementCollection
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+
 }

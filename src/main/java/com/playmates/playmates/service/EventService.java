@@ -2,11 +2,12 @@ package com.playmates.playmates.service;
 
 import com.playmates.playmates.model.AppUser;
 import com.playmates.playmates.model.Event;
-import com.playmates.playmates.model.EventBoardGame;
+import com.playmates.playmates.model.BoardGameFiltered;
 import com.playmates.playmates.model.EventForFrontend;
 import com.playmates.playmates.model.credentials.EventCredentials;
 import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.EventRepository;
+import com.playmates.playmates.repository.FilteredBoardGameRepository;
 import com.playmates.playmates.util.Converter;
 import com.playmates.playmates.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,18 @@ public class EventService {
     AppUserRepository appUserRepository;
 
     @Autowired
+    FilteredBoardGameRepository filteredBoardGameRepository;
+
+    @Autowired
     Converter converter;
 
     public void addEvent(EventCredentials event) {
         String name = Util.getUserFromContext();
         AppUser appUser = appUserRepository.findByUsername(name).get();
 
-        List<EventBoardGame> games = converter.getConvertedBoardGames(event.getGames());
+        Set<BoardGameFiltered> games = converter.getConvertedBoardGames(event.getGames());
+
+        saveGamesToDb(games);
 
         Event newEvent = Event.builder()
                 .eventDate(event.getDate())
@@ -43,6 +49,12 @@ public class EventService {
                 .build();
         eventRepository.saveAndFlush(newEvent);
 
+    }
+
+    private void saveGamesToDb(Set<BoardGameFiltered> games) {
+        for (BoardGameFiltered game : games) {
+            filteredBoardGameRepository.save(game);
+        }
     }
 
     public Set<EventForFrontend> getMyEvents() {

@@ -1,6 +1,5 @@
 package com.playmates.playmates.model;
 
-import com.playmates.playmates.model.generated.GamesItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +23,8 @@ public class Event {
 
     private Long hostId;
 
-    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
-    private List<EventBoardGame> games;
+    @ManyToMany
+    private Set<BoardGameFiltered> games;
 
     @ElementCollection
     private Set<Long> memberIds;

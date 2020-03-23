@@ -1,7 +1,7 @@
 package com.playmates.playmates.util;
 
 import com.playmates.playmates.model.Event;
-import com.playmates.playmates.model.EventBoardGame;
+import com.playmates.playmates.model.BoardGameFiltered;
 import com.playmates.playmates.model.EventForFrontend;
 import com.playmates.playmates.model.generated.GamesItem;
 import com.playmates.playmates.repository.AppUserRepository;
@@ -37,14 +37,14 @@ public class Converter {
         return result;
     }
 
-    public List<EventBoardGame> getConvertedBoardGames(List<GamesItem> games) {
-        List<EventBoardGame> convertedGames = games.stream().map(game -> {
-            EventBoardGame obj = EventBoardGame.builder()
-                    .apiId(game.getId())
+    public Set<BoardGameFiltered> getConvertedBoardGames(List<GamesItem> games) {
+        Set<BoardGameFiltered> convertedGames = games.stream().map(game -> {
+            BoardGameFiltered obj = BoardGameFiltered.builder()
+                    .id(game.getId())
                     .name(game.getName())
                     .build();
             return obj;
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toSet());
         return convertedGames;
     }
 }

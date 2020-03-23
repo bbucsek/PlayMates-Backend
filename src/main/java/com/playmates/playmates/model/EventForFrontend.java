@@ -19,7 +19,7 @@ public class EventForFrontend {
 
     private String hostName;
 
-    private List<EventBoardGame> games;
+    private Set<BoardGameFiltered> games;
 
     private Set<String> members;
 
