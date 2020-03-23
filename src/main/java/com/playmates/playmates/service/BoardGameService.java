@@ -21,4 +21,6 @@ public class BoardGameService {
         ResponseEntity<BoardGame> boardGameResponseEntity = restTemplate.exchange(queryString, HttpMethod.GET, null, BoardGame.class);
         return boardGameResponseEntity.getBody();
     }
+
+
 }

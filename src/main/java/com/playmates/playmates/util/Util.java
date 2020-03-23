@@ -17,6 +17,9 @@ public class Util {
     @Value("&client_id=LY2v8wNXTx")
     String CLIENT_ID;
 
+    @Value("https://www.boardgameatlas.com/api/game/mechanics?pretty=true&client_id=LY2v8wNXTx")
+    String mechanicsUrl;
+
     @Value("https://www.boardgameatlas.com/api/search?name=")
     String apiUrl;
 

@@ -5,22 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-public class BoardGameFiltered {
+public class Mechanics {
 
     @Id
     private String id;
 
     private String name;
-
-    @ManyToMany
-    private Set<Mechanics> mechanics;
-
 }
