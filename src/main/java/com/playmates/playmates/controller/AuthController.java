@@ -37,4 +37,10 @@ public class AuthController {
         data.setPassword(passwordEncoder.encode(data.getPassword()));
         authservice.registerNewUser(data);
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity logout(HttpServletResponse response) {
+
+        return authservice.logout(response);
+    }
 }

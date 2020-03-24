@@ -76,4 +76,15 @@ public class AuthService {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
+
+    public ResponseEntity logout(HttpServletResponse response) {
+
+        Cookie cookie = new Cookie("token", "logout");
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        response.addCookie(cookie);
+        return ResponseEntity.ok(cookie.getMaxAge());
+    }
 }
