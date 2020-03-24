@@ -9,14 +9,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class BoardGameService {
+public class ApiSearchService {
 
     @Autowired
     Util util;
 
     public BoardGame getBoardGamesByName(String name) {
 
-        String queryString = util.getSearchURL(name);
+        String queryString = util.getSearchByNameUrl(name);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<BoardGame> boardGameResponseEntity = restTemplate.exchange(queryString, HttpMethod.GET, null, BoardGame.class);
+        return boardGameResponseEntity.getBody();
+    }
+
+    public BoardGame getBoardGamesByMechanics(String mechanicsId) {
+
+        String queryString = util.getSearchByMechanicsUrl(mechanicsId);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<BoardGame> boardGameResponseEntity = restTemplate.exchange(queryString, HttpMethod.GET, null, BoardGame.class);
         return boardGameResponseEntity.getBody();

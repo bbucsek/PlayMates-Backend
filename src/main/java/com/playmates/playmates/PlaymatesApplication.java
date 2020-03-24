@@ -2,7 +2,7 @@ package com.playmates.playmates;
 
 import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.MechanicsRepository;
-import com.playmates.playmates.service.BoardGameService;
+import com.playmates.playmates.service.ApiSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +16,7 @@ public class PlaymatesApplication {
     AppUserRepository appUserRepository;
 
     @Autowired
-    BoardGameService boardGameService;
+    ApiSearchService apiSearchService;
 
     @Autowired
     MechanicsRepository mechanicsRepository;

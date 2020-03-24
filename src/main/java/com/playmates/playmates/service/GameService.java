@@ -2,14 +2,18 @@ package com.playmates.playmates.service;
 
 import com.playmates.playmates.model.AppUser;
 import com.playmates.playmates.model.BoardGameFiltered;
+import com.playmates.playmates.model.Mechanics;
+import com.playmates.playmates.model.generated.BoardGame;
 import com.playmates.playmates.model.generated.GamesItem;
 import com.playmates.playmates.repository.AppUserRepository;
 import com.playmates.playmates.repository.FilteredBoardGameRepository;
+import com.playmates.playmates.repository.MechanicsRepository;
 import com.playmates.playmates.util.Converter;
 import com.playmates.playmates.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -19,6 +23,9 @@ public class GameService {
     AppUserRepository appUserRepository;
 
     @Autowired
+    ApiSearchService apiSearchService;
+
+    @Autowired
     Converter converter;
 
     @Autowired
@@ -26,6 +33,9 @@ public class GameService {
 
     @Autowired
     Util util;
+
+    @Autowired
+    MechanicsRepository mechanicsRepository;
 
     public void addGameToFavourites(GamesItem game) {
 
@@ -40,5 +50,15 @@ public class GameService {
         appUserRepository.save(appUser);
 
 
+    }
+
+    public List<Mechanics> getAllMechanics() {
+
+        return mechanicsRepository.findAll();
+    }
+
+    public BoardGame getBoardGamesByMechanics(String mechanicsId) {
+
+       return apiSearchService.getBoardGamesByMechanics(mechanicsId);
     }
 }
