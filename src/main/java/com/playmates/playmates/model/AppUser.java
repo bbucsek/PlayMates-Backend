@@ -34,6 +34,9 @@ public class AppUser {
     @ManyToMany
     private Set<BoardGameFiltered> favouriteBoardGames;
 
+    @ManyToMany
+    private Set<Mechanics> favouriteMechanics;
+
     @ElementCollection
     @Builder.Default
     private List<String> roles = new ArrayList<>();

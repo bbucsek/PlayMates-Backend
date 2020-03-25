@@ -61,4 +61,15 @@ public class GameService {
 
        return apiSearchService.getBoardGamesByMechanics(mechanicsId);
     }
+
+    public void addMechanicsToFavourite(String mechanicsId) {
+
+        AppUser appUser = util.getUserFromContext();
+        Mechanics toAdd = mechanicsRepository.findById(mechanicsId).get();
+        Set<Mechanics> favourites = appUser.getFavouriteMechanics();
+        favourites.add(toAdd);
+        appUser.setFavouriteMechanics(favourites);
+        appUserRepository.save(appUser);
+
+    }
 }

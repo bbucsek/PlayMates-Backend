@@ -46,4 +46,10 @@ public class GameController {
         return gameService.getBoardGamesByMechanics(mechanicsId);
     }
 
+    @PutMapping("/mechanics/addtofavourite/{mechanicsId}")
+    public void addMechanicsToFavourite(@PathVariable String  mechanicsId) {
+
+        gameService.addMechanicsToFavourite(mechanicsId);
+    }
+
 }
