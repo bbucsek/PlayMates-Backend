@@ -30,5 +30,4 @@ public class ApiSearchService {
         return boardGameResponseEntity.getBody();
     }
 
-
 }
