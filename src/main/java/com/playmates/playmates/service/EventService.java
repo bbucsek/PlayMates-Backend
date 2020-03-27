@@ -96,4 +96,10 @@ public class EventService {
         event.setMemberIds(members);
         eventRepository.save(event);
     }
+
+    public void editEvent(Long id) {
+
+        System.out.println("anyad");
+
+    }
 }
