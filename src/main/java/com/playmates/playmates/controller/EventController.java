@@ -49,6 +49,12 @@ public class EventController {
         eventService.joinEvent(eventId);
     }
 
+    @GetMapping("/event/{id}")
+    public Event getEventById(@PathVariable Long id) {
+
+        return eventService.getEventById(id);
+    }
+
     @PutMapping("edit/{id}")
     public void editEvent(@PathVariable Long id) {
 

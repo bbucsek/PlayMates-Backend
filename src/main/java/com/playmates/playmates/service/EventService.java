@@ -102,4 +102,9 @@ public class EventService {
         System.out.println("anyad");
 
     }
+
+    public Event getEventById(Long id) {
+
+        return eventRepository.findById(id).get();
+    }
 }
