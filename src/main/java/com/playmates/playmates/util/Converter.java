@@ -24,7 +24,7 @@ public class Converter {
     @Autowired
     MechanicsRepository mechanicsRepository;
 
-    public Set<EventForFrontend> getConvertedEvent(Set<Event> events) {
+   /* public Set<EventForFrontend> getConvertedEvent(Set<Event> events) {
 
         Set<EventForFrontend> result = events.stream().map(event -> {
             EventForFrontend obj = EventForFrontend.builder()
@@ -42,12 +42,13 @@ public class Converter {
         }).collect(Collectors.toSet());
         return result;
     }
-
+*/
     public Set<BoardGameFiltered> getConvertedBoardGames(List<GamesItem> games) {
         Set<BoardGameFiltered> convertedGames = games.stream().map(game -> {
             BoardGameFiltered obj = BoardGameFiltered.builder()
                     .id(game.getId())
                     .name(game.getName())
+                    .mechanics(getConvertedMechanics(game.getMechanics()))
                     .build();
             return obj;
         }).collect(Collectors.toSet());

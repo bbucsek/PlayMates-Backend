@@ -26,7 +26,7 @@ public class EventController {
     }
 
     @GetMapping("my-events")
-    public Set<EventForFrontend> getMyEvents() {
+    public Set<Event> getMyEvents() {
 
         return eventService.getMyEvents();
     }
@@ -38,7 +38,7 @@ public class EventController {
     }
 
     @GetMapping("/list")
-    public Set<EventForFrontend> getOpenEvents() {
+    public Set<Event> getOpenEvents() {
 
         return eventService.getOpenEvents();
     }

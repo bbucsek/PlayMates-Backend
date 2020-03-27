@@ -59,12 +59,12 @@ public class EventService {
         }
     }
 
-    public Set<EventForFrontend> getMyEvents() {
+    public Set<Event> getMyEvents() {
 
         AppUser appUser = util.getUserFromContext();
         Set<Event> events = eventRepository.findByHostId(appUser.getId());
 
-        return converter.getConvertedEvent(events);
+        return events;
 
     }
 
@@ -73,17 +73,17 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
-    public Set<EventForFrontend> getOpenEvents() {
+    public Set<Event> getOpenEvents() {
 
         AppUser appUser = util.getUserFromContext();
 
         Set<Event> filteredEvents = eventRepository.findByHostIdIsNot(appUser.getId())
                 .stream()
                 .filter(event ->
-                        !event.getMemberIds().contains(appUser.getId()))
+                        !event.getMembers().contains(appUser))
                 .collect(Collectors.toSet());
 
-        return converter.getConvertedEvent(filteredEvents);
+        return filteredEvents;
     }
 
     public void joinEvent(Long eventId) {
@@ -91,9 +91,9 @@ public class EventService {
         AppUser appUser = util.getUserFromContext();
 
         Event event = eventRepository.findById(eventId).get();
-        Set<Long> members = event.getMemberIds();
-        members.add(appUser.getId());
-        event.setMemberIds(members);
+        Set<AppUser> members = event.getMembers();
+        members.add(appUser);
+        event.setMembers(members);
         eventRepository.save(event);
     }
 
