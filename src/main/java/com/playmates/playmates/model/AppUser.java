@@ -1,5 +1,6 @@
 package com.playmates.playmates.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,12 +24,15 @@ public class AppUser {
     private Long id;
 
     @NotEmpty
+    @Column(unique = true)
     private String username;
 
     @NotEmpty
+    @JsonIgnore
     private String password;
 
     @NotEmpty
+    @Column(unique = true)
     private String email;
 
     @ManyToMany
@@ -39,6 +43,7 @@ public class AppUser {
 
     @ElementCollection
     @Builder.Default
+    @JsonIgnore
     private List<String> roles = new ArrayList<>();
 
 

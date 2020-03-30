@@ -97,9 +97,19 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public void editEvent(Long id) {
+    public void editEvent(EventCredentials editedEvent, Long eventId) {
 
-        System.out.println("anyad");
+        Event event = eventRepository.findById(eventId).get();
+        Set<BoardGameFiltered> games =  converter.getConvertedBoardGames(editedEvent.getGames());
+        Set<AppUser> members = editedEvent.getMembers().stream().map(member -> {
+            return appUserRepository.findById(member.getId()).get();
+        }).collect(Collectors.toSet());
+        saveGamesToDb(games);
+        event.setMemberLimit(editedEvent.getLimit());
+        event.setGames(games);
+        event.setEventDate(editedEvent.getDate());
+        event.setMembers(members);
+        eventRepository.save(event);
 
     }
 

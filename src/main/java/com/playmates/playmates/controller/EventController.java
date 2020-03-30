@@ -55,10 +55,10 @@ public class EventController {
         return eventService.getEventById(id);
     }
 
-    @PutMapping("edit/{id}")
-    public void editEvent(@PathVariable Long id) {
+    @PutMapping("/edit/{id}")
+    public void editEvent(@PathVariable Long id, @RequestBody EventCredentials editedEvent) {
 
-        eventService.editEvent(id);
+        eventService.editEvent(editedEvent, id);
     }
 
 }
