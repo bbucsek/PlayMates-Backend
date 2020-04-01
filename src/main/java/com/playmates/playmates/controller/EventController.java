@@ -2,6 +2,7 @@ package com.playmates.playmates.controller;
 
 import com.playmates.playmates.model.Event;
 import com.playmates.playmates.model.EventForFrontend;
+import com.playmates.playmates.model.credentials.CommentCredential;
 import com.playmates.playmates.model.credentials.EventCredentials;
 import com.playmates.playmates.service.EventService;
 import lombok.extern.slf4j.Slf4j;
@@ -62,9 +63,9 @@ public class EventController {
     }
 
     @PostMapping("/addcomment/{eventId}")
-    public Event addCommentToEvent(@PathVariable Long eventId, @RequestBody String newComment) {
+    public Event addCommentToEvent(@PathVariable Long eventId, @RequestBody CommentCredential newComment) {
 
-       return eventService.addCommentToEvent(eventId, newComment);
+       return eventService.addCommentToEvent(eventId, newComment.getComment());
     }
 
 }
