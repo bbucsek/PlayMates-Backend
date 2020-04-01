@@ -61,4 +61,10 @@ public class EventController {
         eventService.editEvent(editedEvent, id);
     }
 
+    @PostMapping("/addcomment/{eventId}")
+    public Event addCommentToEvent(@PathVariable Long eventId, @RequestBody String newComment) {
+
+       return eventService.addCommentToEvent(eventId, newComment);
+    }
+
 }

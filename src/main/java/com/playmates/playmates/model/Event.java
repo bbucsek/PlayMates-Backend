@@ -32,4 +32,7 @@ public class Event {
     private Integer memberLimit;
 
     private Date eventDate;
+
+    @ElementCollection
+    private Set<Comment> comments;
 }

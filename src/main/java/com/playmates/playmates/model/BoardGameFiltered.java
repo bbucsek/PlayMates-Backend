@@ -23,4 +23,6 @@ public class BoardGameFiltered {
     @ManyToMany
     private Set<Mechanics> mechanics;
 
+    private String image;
+
 }

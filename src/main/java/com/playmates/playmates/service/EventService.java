@@ -1,11 +1,9 @@
 package com.playmates.playmates.service;
 
-import com.playmates.playmates.model.AppUser;
-import com.playmates.playmates.model.Event;
-import com.playmates.playmates.model.BoardGameFiltered;
-import com.playmates.playmates.model.EventForFrontend;
+import com.playmates.playmates.model.*;
 import com.playmates.playmates.model.credentials.EventCredentials;
 import com.playmates.playmates.repository.AppUserRepository;
+import com.playmates.playmates.repository.CommentRepository;
 import com.playmates.playmates.repository.EventRepository;
 import com.playmates.playmates.repository.FilteredBoardGameRepository;
 import com.playmates.playmates.util.Converter;
@@ -35,6 +33,9 @@ public class EventService {
 
     @Autowired
     Util util;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     public void addEvent(EventCredentials event) {
         AppUser appUser = util.getUserFromContext();
@@ -116,5 +117,23 @@ public class EventService {
     public Event getEventById(Long id) {
 
         return eventRepository.findById(id).get();
+    }
+
+    public Event addCommentToEvent(Long eventId, String newComment) {
+
+        AppUser user = util.getUserFromContext();
+        Comment comment = Comment.builder()
+                .comment(newComment)
+                .author(user)
+                .submitDate(java.time.LocalDateTime.now())
+                .build();
+        commentRepository.save(comment);
+        Event event = eventRepository.findById(eventId).get();
+        Set<Comment> eventComments = event.getComments();
+        eventComments.add(comment);
+        event.setComments(eventComments);
+        eventRepository.save(event);
+        return event;
+
     }
 }
