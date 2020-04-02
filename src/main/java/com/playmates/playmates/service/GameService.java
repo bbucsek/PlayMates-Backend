@@ -72,4 +72,8 @@ public class GameService {
         appUserRepository.save(appUser);
 
     }
+
+    public Set<BoardGameFiltered> getAllUserFavouriteGames() {
+        return appUserRepository.getAllUserFavouriteGames();
+    }
 }

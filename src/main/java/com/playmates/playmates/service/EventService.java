@@ -38,6 +38,7 @@ public class EventService {
     CommentRepository commentRepository;
 
     public void addEvent(EventCredentials event) {
+
         AppUser appUser = util.getUserFromContext();
 
         Set<BoardGameFiltered> games = converter.getConvertedBoardGames(event.getGames());
@@ -63,9 +64,9 @@ public class EventService {
     public Set<Event> getMyEvents() {
 
         AppUser appUser = util.getUserFromContext();
-        Set<Event> events = eventRepository.findByHostId(appUser.getId());
+        Set<Event> myEvents = eventRepository.findByHostId(appUser.getId());
 
-        return events;
+        return myEvents;
 
     }
 

@@ -27,6 +27,7 @@ public class Event {
     private Set<BoardGameFiltered> games;
 
     @ElementCollection
+    @ManyToMany
     private Set<AppUser> members;
 
     private Integer memberLimit;

@@ -7,6 +7,7 @@ import com.playmates.playmates.model.Mechanics;
 import com.playmates.playmates.model.generated.GamesItem;
 import com.playmates.playmates.model.generated.MechanicsItem;
 import com.playmates.playmates.repository.AppUserRepository;
+import com.playmates.playmates.repository.FilteredBoardGameRepository;
 import com.playmates.playmates.repository.MechanicsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,14 @@ public class Converter {
     @Autowired
     MechanicsRepository mechanicsRepository;
 
+    @Autowired
+    FilteredBoardGameRepository filteredBoardGameRepository;
+
     public Set<BoardGameFiltered> getConvertedBoardGames(List<GamesItem> games) {
         Set<BoardGameFiltered> convertedGames = games.stream().map(game -> {
+            if (game.getDescription() == null) {
+                return filteredBoardGameRepository.findById(game.getId()).get();
+            }
             BoardGameFiltered obj = BoardGameFiltered.builder()
                     .id(game.getId())
                     .name(game.getName())

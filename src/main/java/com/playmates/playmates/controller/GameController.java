@@ -35,6 +35,11 @@ public class GameController {
         gameService.addGameToFavourites(game);
     }
 
+    @GetMapping("/favourites/all")
+    public Set<BoardGameFiltered> getAllUserFavouriteGames() {
+        return gameService.getAllUserFavouriteGames();
+    }
+
     @GetMapping("/mechanics")
     public List<Mechanics> getAllMechanics() {
         return gameService.getAllMechanics();
