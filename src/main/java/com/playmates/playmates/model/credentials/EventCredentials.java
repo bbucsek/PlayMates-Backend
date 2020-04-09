@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,6 @@ public class EventCredentials {
 
     private List<GamesItem> games;
     private Integer limit;
-    private Date date;
+    private LocalDateTime date;
     private Set<AppUser> members;
 }

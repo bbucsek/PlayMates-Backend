@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,7 +45,6 @@ public class EventService {
         Set<BoardGameFiltered> games = converter.getConvertedBoardGames(event.getGames());
 
         saveGamesToDb(games);
-
         Event newEvent = Event.builder()
                 .eventDate(event.getDate())
                 .hostId(appUser.getId())
