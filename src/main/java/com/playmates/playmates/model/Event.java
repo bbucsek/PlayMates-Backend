@@ -26,7 +26,6 @@ public class Event {
     @ManyToMany
     private Set<BoardGameFiltered> games;
 
-    @ElementCollection
     @ManyToMany
     private Set<AppUser> members;
 
