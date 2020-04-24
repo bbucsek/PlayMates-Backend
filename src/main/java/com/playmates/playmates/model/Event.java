@@ -22,7 +22,8 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    private Long hostId;
+    @OneToOne
+    private AppUser host;
 
     @ManyToMany
     private Set<BoardGameFiltered> games;

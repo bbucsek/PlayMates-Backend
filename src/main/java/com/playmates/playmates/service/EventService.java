@@ -47,7 +47,7 @@ public class EventService {
         saveGamesToDb(games);
         Event newEvent = Event.builder()
                 .eventDate(event.getDate())
-                .hostId(appUser.getId())
+                .host(appUser)
                 .memberLimit(event.getLimit())
                 .games(games)
                 .build();
@@ -65,9 +65,9 @@ public class EventService {
 
         AppUser appUser = util.getUserFromContext();
         Set<Event> myEvents = eventRepository.findByHostId(appUser.getId());
-
+        Set<Event> eventsParticipate = eventRepository.findByMembersContains(appUser);
+        myEvents.addAll(eventsParticipate);
         return myEvents;
-
     }
 
     public void deleteEventById(Long id) {
