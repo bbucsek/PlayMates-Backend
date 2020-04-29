@@ -26,13 +26,13 @@ public class EventController {
         eventService.addEvent(event);
     }
 
-    @GetMapping("my-events")
+    @GetMapping("/my-events")
     public Set<Event> getMyEvents() {
 
         return eventService.getMyEvents();
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteEvent(@PathVariable Long id) {
 
         eventService.deleteEventById(id);
